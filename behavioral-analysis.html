@@ -68,41 +68,86 @@
         <p>&copy; 2024 Autism Detection Project</p>
     </footer>
 
-    // ... (rest of the HTML and CSS)
+    <script>
+        let mediaRecorder;
+        let videoStream;
+        let videoChunks = [];
 
-<script>
-  // ... (rest of the JavaScript)
+        const videoElement = document.getElementById('video');
+        const startButton = document.getElementById('start-recording');
+        const stopButton = document.getElementById('stop-recording');
+        const recordingForm = document.getElementById('recording-form');
+        const videoFileInput = document.getElementById('video-file');
 
-  // Handle form submission with more error handling and feedback
-  recordingForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
+        // Get the user's webcam stream
+        async function startVideoStream() {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoElement.srcObject = videoStream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+                alert('Could not access webcam. Please check your permissions.');
+            }
+        }
 
-    try {
-      const formData = new FormData();
-      formData.append('video-file', blob, 'recording.webm');
+        // Start recording
+        startButton.addEventListener('click', () => {
+            mediaRecorder = new MediaRecorder(videoStream);
+            mediaRecorder.ondataavailable = (event) => videoChunks.push(event.data);
+            mediaRecorder.onstop = () => {
+                const videoBlob = new Blob(videoChunks, { type: 'video/webm' });
+                const videoUrl = URL.createObjectURL(videoBlob);
+                videoFileInput.value = videoUrl;  // Attach the video file URL to the form
+                recordingForm.style.display = 'block';  // Show the submit form
+            };
+            mediaRecorder.start();
+            startButton.disabled = true;
+            stopButton.disabled = false;
+        });
 
-      const response = await fetch('submit-behavioral-analysis.php', {
-        method: 'POST',
-        body: formData
-      });
+        // Stop recording
+        stopButton.addEventListener('click', () => {
+            mediaRecorder.stop();
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit the recording.');
-      }
+        // Submit the recording
+        recordingForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
 
-      const result = await response.json();
+            try {
+                const formData = new FormData();
+                formData.append('video-file', videoFileInput.value, 'recording.webm');
 
-      if (result.success) {
-        alert('Recording submitted successfully!');
-        window.location.href = 'collation-analysis.html';
-      } else {
-        alert('Failed to submit the recording.');
-      }
-    } catch (error) {
-      console.error('Error submitting the recording:', error);
-      alert('An error occurred while submitting the recording. Please try again later.');
-    }
-  });
-</script>
+                const response = await fetch('submit-behavioral-analysis.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit the recording.');
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Recording submitted successfully!');
+                    window.location.href = 'collation-analysis.html';
+                } else {
+                    alert('Failed to submit the recording.');
+                }
+            } catch (error) {
+                console.error('Error submitting the recording:', error);
+                alert('An error occurred while submitting the recording. Please try again later.');
+            }
+        });
+
+        // Initialize the webcam stream when the page loads
+        window.onload = startVideoStream;
+    </script>
 </body>
 </html>
+
+
+
