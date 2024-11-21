@@ -11,18 +11,24 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a href="initial-screening.html">Initial Screening</a></li>
             <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
             <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+            <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
             <li><a href="collation-analysis.html">Collation and Analysis</a></li>
             <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
         </ul>
     </nav>
+
     <h2>Patient Details</h2>
     <div id="patient-details"></div>
+
     <h2>Results</h2>
     <div id="result"></div>
+
     <h2>Teaching Method Recommendations</h2>
     <div id="recommendations"></div>
+
     <button onclick="printResults()">Print Results</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -30,12 +36,6 @@
         function displayResults() {
             const name = sessionStorage.getItem('name');
             const dob = sessionStorage.getItem('dob');
-            const fatherName = sessionStorage.getItem('fatherName');
-            const motherName = sessionStorage.getItem('motherName');
-            const phone = sessionStorage.getItem('phone');
-            const email = sessionStorage.getItem('email');
-            const address = sessionStorage.getItem('address');
-
             const percentage = sessionStorage.getItem('percentage');
             const description = sessionStorage.getItem('description');
 
@@ -43,11 +43,7 @@
             detailsElement.innerHTML = `
                 <strong>Name:</strong> ${name}<br>
                 <strong>Date of Birth:</strong> ${dob}<br>
-                <strong>Father's Name:</strong> ${fatherName}<br>
-                <strong>Mother's Name:</strong> ${motherName}<br>
-                <strong>Phone:</strong> ${phone}<br>
-                <strong>Email:</strong> ${email}<br>
-                <strong>Address:</strong> ${address}<br>
+               
             `;
 
             const resultElement = document.getElementById('result');
@@ -128,3 +124,4 @@
     </script>
 </body>
 </html>
+
