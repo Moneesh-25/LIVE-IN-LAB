@@ -14,32 +14,67 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="initial-screening.html">Initial Screening</a></li>
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+                <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
+
                 <li><a href="collation-analysis.html">Collation and Analysis</a></li>
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section>
-            <h2>Developmental Assessment</h2>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa3gLEHeGAB4yxxjUc-3c6BjrrxsawVi9yPQ&s" alt="Abstract artwork used for developmental assessment">
-            <form id="assessment-form">
-                <label for="response">How does the individual respond to the image?</label>
-                <textarea id="response" name="response" required></textarea>
-                <button type="button" id="submit-button">Submit</button>
-            </form>
+        <!-- Section 1 -->
+        <section id="section-1">
+            <h2>Section 1: Reactions to Images</h2>
+            <div class="image-container">
+                <div class="image-item">
+                    <img src="https://images.pexels.com/photos/1439223/pexels-photo-1439223.jpeg" alt="Abstract Pattern" class="assessment-image">
+                    <label for="reaction1">What is your reaction to this abstract pattern?</label>
+                    <input type="text" id="reaction1" placeholder="Describe the reaction">
+                </div>
+                <div class="image-item">
+                    <img src="https://images.pexels.com/photos/1146823/pexels-photo-1146823.jpeg" alt="Nature Landscape" class="assessment-image">
+                    <label for="reaction2">What is your reaction to this natural scene?</label>
+                    <input type="text" id="reaction2" placeholder="Describe the reaction">
+                </div>
+            </div>
+            <button type="button" id="next-section-1">Next Section</button>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="section-2" style="display:none;">
+            <h2>Section 2: Reactions to New Images</h2>
+            <div class="image-container">
+                <div class="image-item">
+                    <img src="https://images.pexels.com/photos/1036816/pexels-photo-1036816.jpeg" alt="Toy Car" class="assessment-image">
+                    <label for="reaction3">What is your reaction to this toy car?</label>
+                    <input type="text" id="reaction3" placeholder="Describe the reaction">
+                </div>
+                <div class="image-item">
+                    <img src="https://images.pexels.com/photos/1509234/pexels-photo-1509234.jpeg" alt="Colorful Abstract" class="assessment-image">
+                    <label for="reaction4">What is your reaction to this colorful abstract image?</label>
+                    <input type="text" id="reaction4" placeholder="Describe the reaction">
+                </div>
+            </div>
+            <button type="submit">Submit Assessment</button>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Autism Detection Project</p>
-    </footer>
-    <script>
-        document.getElementById('submit-button').addEventListener('click', function() {
-            const response = document.getElementById('response').value;
-            sessionStorage.setItem('developmentalAssessment', response);
 
-            window.location.href = 'collation-analysis.html';
+    <footer>
+        <p>&copy; 2024 Neuroinsight Project. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript to handle the "Next Section" button click
+        document.getElementById("next-section-1").addEventListener("click", function() {
+            // Hide Section 1
+            document.getElementById("section-1").style.display = "none";
+            
+            // Show Section 2
+            document.getElementById("section-2").style.display = "block";
         });
+
+        // Optional: You can add form validation or other interactive behaviors here
     </script>
 </body>
 </html>
