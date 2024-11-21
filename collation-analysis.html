@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collation and Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #result {
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        .low-influence {
+            color: #4caf50;
+        }
+
+        .mild-influence {
+            color: #ff9800;
+        }
+
+        .moderate-influence {
+            color: #ff5722;
+        }
+
+        .strong-influence, .severe-influence {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Collation and Analysis</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+            <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+            <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+            <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+        </ul>
+    </nav>
+    <h2>Results</h2>
+    <p id="result">Calculating...</p>
+    <button onclick="goToDiagnosticConclusion()">Next</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function calculatePercentage() {
+            const initialScreening = parseFloat(sessionStorage.getItem('initialScreening')) || 0;
+            const diagnosticInterview = parseFloat(sessionStorage.getItem('diagnosticInterview')) || 0;
+            const developmentalAssessment = parseFloat(sessionStorage.getItem('developmentalAssessment')) || 0;
+
+            const maxInitialScreening = 10;
+            const maxDiagnosticInterview = 75;
+            const maxDevelopmentalAssessment = 10;
+
+            const totalScore = initialScreening + diagnosticInterview + developmentalAssessment;
+            const maxScore = maxInitialScreening + maxDiagnosticInterview + maxDevelopmentalAssessment;
+
+            const percentage = (totalScore / maxScore) * 100;
+
+            let description;
+            let resultClass;
+            if (percentage <= 20) {
+                description = 'Minimal Influence: The individual shows very few signs of ASD. Most behaviors and responses are within typical ranges. Limited challenges in social interactions and cognitive functions.';
+                resultClass = 'low-influence';
+            } else if (percentage <= 40) {
+                description = 'Mild Influence: Some signs of ASD are present, but they are relatively mild. Occasional difficulties in social interactions or behavioral patterns. Reactions to stimuli and behaviors show slight deviations from typical norms.';
+                resultClass = 'mild-influence';
+            } else if (percentage <= 60) {
+                description = 'Moderate Influence: Noticeable signs of ASD affecting various areas. Regular challenges in social interactions, cognitive functions, and behavioral patterns. Significant deviations from typical developmental and behavioral norms.';
+                resultClass = 'moderate-influence';
+            } else if (percentage <= 80) {
+                description = 'Strong Influence: Significant signs of ASD that impact daily functioning. Consistent difficulties in social interactions, understanding of social cues, and behavioral patterns. Major deviations from typical developmental and behavioral expectations.';
+                resultClass = 'strong-influence';
+            } else {
+                description = 'Severe Influence: The individual exhibits strong symptoms of ASD. Extensive challenges in all assessed areas, including social interactions, cognitive functions, and behaviors. Major and consistent deviations from typical developmental and behavioral norms.';
+                resultClass = 'severe-influence';
+            }
+
+            sessionStorage.setItem('percentage', percentage.toFixed(2));
+            sessionStorage.setItem('description', description);
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `<strong>Percentage Influence:</strong> ${percentage.toFixed(2)}%<br><br><strong>Description:</strong> ${description}`;
+            resultElement.className = resultClass;
+        }
+
+
+        function goToDiagnosticConclusion() {
+            window.location.href = 'diagnostic-conclusion.html';
+        }
+
+        window.onload = calculatePercentage;
+    </script>
+</body>
+</html>

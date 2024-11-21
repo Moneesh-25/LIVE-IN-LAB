@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Conclusion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Diagnostic Conclusion</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+            <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+            <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+            <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+        </ul>
+    </nav>
+    <h2>Patient Details</h2>
+    <div id="patient-details"></div>
+    <h2>Results</h2>
+    <div id="result"></div>
+    <h2>Teaching Method Recommendations</h2>
+    <div id="recommendations"></div>
+    <button onclick="printResults()">Print Results</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function displayResults() {
+            const name = sessionStorage.getItem('name');
+            const dob = sessionStorage.getItem('dob');
+            const fatherName = sessionStorage.getItem('fatherName');
+            const motherName = sessionStorage.getItem('motherName');
+            const phone = sessionStorage.getItem('phone');
+            const email = sessionStorage.getItem('email');
+            const address = sessionStorage.getItem('address');
+
+            const percentage = sessionStorage.getItem('percentage');
+            const description = sessionStorage.getItem('description');
+
+            const detailsElement = document.getElementById('patient-details');
+            detailsElement.innerHTML = `
+                <strong>Name:</strong> ${name}<br>
+                <strong>Date of Birth:</strong> ${dob}<br>
+                <strong>Father's Name:</strong> ${fatherName}<br>
+                <strong>Mother's Name:</strong> ${motherName}<br>
+                <strong>Phone:</strong> ${phone}<br>
+                <strong>Email:</strong> ${email}<br>
+                <strong>Address:</strong> ${address}<br>
+            `;
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `
+                <strong>Percentage Influence:</strong> ${percentage}%<br><br>
+                <strong>Description:</strong> ${description}
+            `;
+
+            let recommendations;
+            if (percentage <= 20) {
+                recommendations = 'No special teaching methods are necessary. Continue with regular educational practices.';
+            } else if (percentage <= 40) {
+                recommendations = 'Introduce mild behavioral strategies and consider periodic assessments.';
+            } else if (percentage <= 60) {
+                recommendations = 'Implement targeted teaching strategies focusing on social skills and cognitive functions.';
+            } else if (percentage <= 80) {
+                recommendations = 'Adopt specialized teaching methods and behavioral therapies. Frequent reviews are suggested.';
+            } else {
+                recommendations = 'Intensive intervention strategies are recommended. Regular specialized consultations are necessary.';
+            }
+            const recommendationsElement = document.getElementById('recommendations');
+            recommendationsElement.innerHTML = recommendations;
+        }
+
+        function printResults() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4'); 
+
+            doc.setFont("helvetica");
+            doc.setFontSize(12);
+
+            doc.text("Diagnostic Conclusion Report", 10, 20);
+            doc.setFontSize(10);
+
+            // Fetching text content from HTML elements
+            const patientDetailsText = document.getElementById('patient-details').innerText;
+            const resultsText = document.getElementById('result').innerText;
+            const recommendationsText = document.getElementById('recommendations').innerText;
+
+            // Splitting content to fit within PDF width
+            const patientDetailsLines = doc.splitTextToSize(patientDetailsText, 180);
+            const resultsLines = doc.splitTextToSize(resultsText, 180);
+            const recommendationsLines = doc.splitTextToSize(recommendationsText, 180);
+
+            let yPosition = 30;  // Initial Y position for patient details
+
+            // Add Patient Details
+            doc.text("Patient Details", 10, yPosition);
+            yPosition += 10;
+            patientDetailsLines.forEach(line => {
+                doc.text(line, 10, yPosition);
+                yPosition += 6;
+            });
+
+            // Add Results
+            yPosition += 10;
+            doc.text("Results", 10, yPosition);
+            yPosition += 10;
+            resultsLines.forEach(line => {
+                doc.text(line, 10, yPosition);
+                yPosition += 6;
+            });
+
+            // Add Recommendations
+            yPosition += 10;
+            doc.text("Teaching Method Recommendations", 10, yPosition);
+            yPosition += 10;
+            recommendationsLines.forEach(line => {
+                doc.text(line, 10, yPosition);
+                yPosition += 6;
+            });
+
+            // Save the PDF
+            doc.save('diagnostic-conclusion.pdf');
+        }
+
+        window.onload = displayResults;
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initial Screening</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="number"], input[type="email"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Initial Screening</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+                <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+                <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Medical Information</h2>
+            <form id="screeningForm" action="diagnostic-interview.html" method="post" enctype="multipart/form-data" onsubmit="saveInitialScreeningData()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="father-name">Father's Name:</label>
+                <input type="text" id="father-name" name="father-name" required>
+
+                <label for="mother-name">Mother's Name:</label>
+                <input type="text" id="mother-name" name="mother-name" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="4" required></textarea>
+
+                <label for="medical-documents">Upload Medical Documents (PDF, JPG, PNG):</label>
+                <input type="file" id="medical-documents" name="medical-documents[]" multiple accept=".pdf, .jpg, .png" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Autism Detection Project</p>
+    </footer>
+
+    <script>
+        function saveInitialScreeningData() {
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const fatherName = document.getElementById('father-name').value;
+            const motherName = document.getElementById('mother-name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+
+            sessionStorage.setItem('name', name);
+            sessionStorage.setItem('dob', dob);
+            sessionStorage.setItem('fatherName', fatherName);
+            sessionStorage.setItem('motherName', motherName);
+            sessionStorage.setItem('phone', phone);
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('address', address);
+
+        }
+    </script>
+</body>
+</html>
+

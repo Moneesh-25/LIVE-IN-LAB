@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional CSS for the video recording section */
+        #video-container {
+            text-align: center;
+            margin: 20px auto;
+        }
+        video {
+            width: 100%;
+            max-width: 640px;
+            border: 2px solid #333;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #d6d6d6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Behavioral Analysis</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="initial-screening.html">Initial Screening</a></li>
+                <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+                <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+                <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Behavioral Analysis</h2>
+            <p>Record the individual's behavior using the webcam below.</p>
+            <div id="video-container">
+                <video id="video" autoplay></video>
+                <div id="controls">
+                    <button id="start-recording">Start Recording</button>
+                    <button id="stop-recording" disabled>Stop Recording</button>
+                </div>
+            </div>
+            <form id="recording-form" style="display: none;">
+                <input type="hidden" name="video-file" id="video-file">
+                <button type="submit">Submit Recording</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Autism Detection Project</p>
+    </footer>
+
+    // ... (rest of the HTML and CSS)
+
+<script>
+  // ... (rest of the JavaScript)
+
+  // Handle form submission with more error handling and feedback
+  recordingForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+      formData.append('video-file', blob, 'recording.webm');
+
+      const response = await fetch('submit-behavioral-analysis.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit the recording.');
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Recording submitted successfully!');
+        window.location.href = 'collation-analysis.html';
+      } else {
+        alert('Failed to submit the recording.');
+      }
+    } catch (error) {
+      console.error('Error submitting the recording:', error);
+      alert('An error occurred while submitting the recording. Please try again later.');
+    }
+  });
+</script>
+</body>
+</html>

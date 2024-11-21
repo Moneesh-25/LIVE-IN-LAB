@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Interview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Diagnostic Interview</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+                <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+                <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="diagnostic-form">
+            <div class="question">
+                <label for="q1">1. Does the individual find it difficult to maintain eye contact?</label><br>
+                <input type="radio" name="q1" value="1"> Yes<br>
+                <input type="radio" name="q1" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q2">2. Does the individual struggle with changes in routine?</label><br>
+                <input type="radio" name="q2" value="1"> Yes<br>
+                <input type="radio" name="q2" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q3">3. Does the individual have difficulty understanding social cues?</label><br>
+                <input type="radio" name="q3" value="1"> Yes<br>
+                <input type="radio" name="q3" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q4">4. Does the individual exhibit repetitive behaviors?</label><br>
+                <input type="radio" name="q4" value="1"> Yes<br>
+                <input type="radio" name="q4" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q5">5. Does the individual show interest in few activities?</label><br>
+                <input type="radio" name="q5" value="1"> Yes<br>
+                <input type="radio" name="q5" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q6">6. Does the individual have unusual sensory sensitivities?</label><br>
+                <input type="radio" name="q6" value="1"> Yes<br>
+                <input type="radio" name="q6" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q7">7. Does the individual struggle to make friends?</label><br>
+                <input type="radio" name="q7" value="1"> Yes<br>
+                <input type="radio" name="q7" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q8">8. Does the individual have trouble communicating needs and feelings?</label><br>
+                <input type="radio" name="q8" value="1"> Yes<br>
+                <input type="radio" name="q8" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q9">9. Does the individual exhibit unusual language patterns?</label><br>
+                <input type="radio" name="q9" value="1"> Yes<br>
+                <input type="radio" name="q9" value="0"> No<br>
+            </div>
+            <div class="question">
+                <label for="q10">10. Does the individual have difficulty with motor coordination?</label><br>
+                <input type="radio" name="q10" value="1"> Yes<br>
+                <input type="radio" name="q10" value="0"> No<br>
+            </div>
+
+            <button type="button" id="submit-button">Submit</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('submit-button').addEventListener('click', function () {
+            let score = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer) {
+                    score += parseInt(answer.value);
+                }
+            }
+
+            sessionStorage.setItem('diagnosticInterview', score);
+
+            window.location.href = 'developmental-assessment.html';
+        });
+    </script>
+</body>
+</html>

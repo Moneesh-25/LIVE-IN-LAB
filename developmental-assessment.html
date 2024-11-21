@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developmental Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Developmental Assessment</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="initial-screening.html">Initial Screening</a></li>
+                <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
+                <li><a href="collation-analysis.html">Collation and Analysis</a></li>
+                <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Developmental Assessment</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa3gLEHeGAB4yxxjUc-3c6BjrrxsawVi9yPQ&s" alt="Abstract artwork used for developmental assessment">
+            <form id="assessment-form">
+                <label for="response">How does the individual respond to the image?</label>
+                <textarea id="response" name="response" required></textarea>
+                <button type="button" id="submit-button">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Autism Detection Project</p>
+    </footer>
+    <script>
+        document.getElementById('submit-button').addEventListener('click', function() {
+            const response = document.getElementById('response').value;
+            sessionStorage.setItem('developmentalAssessment', response);
+
+            window.location.href = 'collation-analysis.html';
+        });
+    </script>
+</body>
+</html>
+
