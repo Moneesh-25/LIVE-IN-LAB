@@ -14,82 +14,318 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
                 <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
+
                 <li><a href="collation-analysis.html">Collation and Analysis</a></li>
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <form id="diagnostic-form">
-            <div class="question">
-                <label for="q1">1. Does the individual find it difficult to maintain eye contact?</label><br>
-                <input type="radio" name="q1" value="1"> Yes<br>
-                <input type="radio" name="q1" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q2">2. Does the individual struggle with changes in routine?</label><br>
-                <input type="radio" name="q2" value="1"> Yes<br>
-                <input type="radio" name="q2" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q3">3. Does the individual have difficulty understanding social cues?</label><br>
-                <input type="radio" name="q3" value="1"> Yes<br>
-                <input type="radio" name="q3" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q4">4. Does the individual exhibit repetitive behaviors?</label><br>
-                <input type="radio" name="q4" value="1"> Yes<br>
-                <input type="radio" name="q4" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q5">5. Does the individual show interest in few activities?</label><br>
-                <input type="radio" name="q5" value="1"> Yes<br>
-                <input type="radio" name="q5" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q6">6. Does the individual have unusual sensory sensitivities?</label><br>
-                <input type="radio" name="q6" value="1"> Yes<br>
-                <input type="radio" name="q6" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q7">7. Does the individual struggle to make friends?</label><br>
-                <input type="radio" name="q7" value="1"> Yes<br>
-                <input type="radio" name="q7" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q8">8. Does the individual have trouble communicating needs and feelings?</label><br>
-                <input type="radio" name="q8" value="1"> Yes<br>
-                <input type="radio" name="q8" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q9">9. Does the individual exhibit unusual language patterns?</label><br>
-                <input type="radio" name="q9" value="1"> Yes<br>
-                <input type="radio" name="q9" value="0"> No<br>
-            </div>
-            <div class="question">
-                <label for="q10">10. Does the individual have difficulty with motor coordination?</label><br>
-                <input type="radio" name="q10" value="1"> Yes<br>
-                <input type="radio" name="q10" value="0"> No<br>
-            </div>
+         <!-- Section 1 -->
+         <section id="section-1">
+            <h2>Section 1: Social Behavior</h2>
+            <form id="diagnostic-form-1">
+                <div class="question">
+                    <label for="q1">1. Does the individual find it difficult to maintain eye contact?</label><br>
+                    <input type="radio" name="q1" value="1"> Yes<br>
+                    <input type="radio" name="q1" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q2">2. Does the individual struggle with changes in routine?</label><br>
+                    <input type="radio" name="q2" value="1"> Yes<br>
+                    <input type="radio" name="q2" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q3">3. Does the individual have difficulty understanding social cues?</label><br>
+                    <input type="radio" name="q3" value="1"> Yes<br>
+                    <input type="radio" name="q3" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q4">4. Does the individual exhibit repetitive behaviors?</label><br>
+                    <input type="radio" name="q4" value="1"> Yes<br>
+                    <input type="radio" name="q4" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q5">5. Does the individual have trouble making eye contact during conversations?</label><br>
+                    <input type="radio" name="q5" value="1"> Yes<br>
+                    <input type="radio" name="q5" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q6">6. Does the individual prefer to be alone rather than with others?</label><br>
+                    <input type="radio" name="q6" value="1"> Yes<br>
+                    <input type="radio" name="q6" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q7">7. Does the individual avoid physical contact with others?</label><br>
+                    <input type="radio" name="q7" value="1"> Yes<br>
+                    <input type="radio" name="q7" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q8">8. Does the individual get upset when routines or plans are changed?</label><br>
+                    <input type="radio" name="q8" value="1"> Yes<br>
+                    <input type="radio" name="q8" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q9">9. Does the individual have a limited range of interests?</label><br>
+                    <input type="radio" name="q9" value="1"> Yes<br>
+                    <input type="radio" name="q9" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q10">10. Does the individual find it difficult to adjust to new environments?</label><br>
+                    <input type="radio" name="q10" value="1"> Yes<br>
+                    <input type="radio" name="q10" value="0"> No<br>
+                </div>
+                <button type="button" id="next-section-1">Next</button>
+            </form>
+        </section>
 
-            <button type="button" id="submit-button">Submit</button>
-        </form>
+        <!-- Section 2 -->
+        <section id="section-2" style="display:none;">
+            <h2>Section 2: Communication and Interests</h2>
+            <form id="diagnostic-form-2">
+                <div class="question">
+                    <label for="q11">11. Does the individual show interest in few activities?</label><br>
+                    <input type="radio" name="q11" value="1"> Yes<br>
+                    <input type="radio" name="q11" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q12">12. Does the individual have unusual sensory sensitivities?</label><br>
+                    <input type="radio" name="q12" value="1"> Yes<br>
+                    <input type="radio" name="q12" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q13">13. Does the individual struggle to make friends?</label><br>
+                    <input type="radio" name="q13" value="1"> Yes<br>
+                    <input type="radio" name="q13" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q14">14. Does the individual have trouble communicating needs and feelings?</label><br>
+                    <input type="radio" name="q14" value="1"> Yes<br>
+                    <input type="radio" name="q14" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q15">15. Does the individual engage in repetitive speech patterns?</label><br>
+                    <input type="radio" name="q15" value="1"> Yes<br>
+                    <input type="radio" name="q15" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q16">16. Does the individual show limited interest in social activities?</label><br>
+                    <input type="radio" name="q16" value="1"> Yes<br>
+                    <input type="radio" name="q16" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q17">17. Does the individual prefer talking about specific topics?</label><br>
+                    <input type="radio" name="q17" value="1"> Yes<br>
+                    <input type="radio" name="q17" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q18">18. Does the individual have difficulty understanding metaphors or idioms?</label><br>
+                    <input type="radio" name="q18" value="1"> Yes<br>
+                    <input type="radio" name="q18" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q19">19. Does the individual engage in unusual body movements or gestures?</label><br>
+                    <input type="radio" name="q19" value="1"> Yes<br>
+                    <input type="radio" name="q19" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q20">20. Does the individual have difficulty switching between tasks or activities?</label><br>
+                    <input type="radio" name="q20" value="1"> Yes<br>
+                    <input type="radio" name="q20" value="0"> No<br>
+                </div>
+                <button type="button" id="next-section-2">Next</button>
+            </form>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="section-3" style="display:none;">
+            <h2>Section 3: Motor Skills and Behavior Patterns</h2>
+            <form id="diagnostic-form-3">
+                <div class="question">
+                    <label for="q21">21. Does the individual exhibit unusual language patterns?</label><br>
+                    <input type="radio" name="q21" value="1"> Yes<br>
+                    <input type="radio" name="q21" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q22">22. Does the individual have difficulty with motor coordination?</label><br>
+                    <input type="radio" name="q22" value="1"> Yes<br>
+                    <input type="radio" name="q22" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q23">23. Does the individual show repetitive play behavior (e.g., lining up toys)?</label><br>
+                    <input type="radio" name="q23" value="1"> Yes<br>
+                    <input type="radio" name="q23" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q24">24. Does the individual have unusual hand or finger movements?</label><br>
+                    <input type="radio" name="q24" value="1"> Yes<br>
+                    <input type="radio" name="q24" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q25">25. Does the individual have trouble with balance or coordination?</label><br>
+                    <input type="radio" name="q25" value="1"> Yes<br>
+                    <input type="radio" name="q25" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q26">26. Does the individual show signs of hyperactivity or restlessness?</label><br>
+                    <input type="radio" name="q26" value="1"> Yes<br>
+                    <input type="radio" name="q26" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q27">27. Does the individual have difficulty sitting still for long periods?</label><br>
+                    <input type="radio" name="q27" value="1"> Yes<br>
+                    <input type="radio" name="q27" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q28">28. Does the individual have a narrow range of motor skills?</label><br>
+                    <input type="radio" name="q28" value="1"> Yes<br>
+                    <input type="radio" name="q28" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q29">29. Does the individual prefer repetitive body movements or sounds?</label><br>
+                    <input type="radio" name="q29" value="1"> Yes<br>
+                    <input type="radio" name="q29" value="0"> No<br>
+                </div>
+                <div class="question">
+                    <label for="q30">30. Does the individual resist changes to their routine or environment?</label><br>
+                    <input type="radio" name="q30" value="1"> Yes<br>
+                    <input type="radio" name="q30" value="0"> No<br>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
     </main>
-    <script>
-        document.getElementById('submit-button').addEventListener('click', function () {
-            let score = 0;
 
-            for (let i = 1; i <= 10; i++) {
-                const answer = document.querySelector(`input[name="q${i}"]:checked`);
-                if (answer) {
-                    score += parseInt(answer.value);
+    <footer>
+        <p>&copy; 2024 Neuroinsight Project. All rights reserved.</p>
+    </footer>
+        <script>
+        // Handle section transitions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle Next button click for Section 1
+            document.getElementById('next-section-1').addEventListener('click', function() {
+                const section1Form = document.getElementById('diagnostic-form-1');
+                if (validateSection(section1Form)) {
+                    // Store data and proceed to next section
+                    storeAnswers(section1Form);
+                    document.getElementById('section-1').style.display = 'none';
+                    document.getElementById('section-2').style.display = 'block';
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
+
+            // Handle Next button click for Section 2
+            document.getElementById('next-section-2').addEventListener('click', function() {
+                const section2Form = document.getElementById('diagnostic-form-2');
+                if (validateSection(section2Form)) {
+                    storeAnswers(section2Form);
+                    document.getElementById('section-2').style.display = 'none';
+                    document.getElementById('section-3').style.display = 'block';
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
+
+            // Handle Submit button click for Section 3
+            document.getElementById('submit-form').addEventListener('click', function(event) {
+                event.preventDefault();
+                const section3Form = document.getElementById('diagnostic-form-3');
+                if (validateSection(section3Form)) {
+                    storeAnswers(section3Form);
+                    // After validation and storing data, proceed to next page (Developmental Assessment)
+                    window.location.href = "developmental-assessment.html";
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
+        });
+
+        // Function to validate the section (checks if any radio buttons are selected)
+        function validateSection(form) {
+            const questions = form.querySelectorAll('.question input[type="radio"]');
+            for (let i = 0; i < questions.length; i++) {
+                if (!questions[i].checked) {
+                    return false;
                 }
             }
+            return true;
+        }
 
-            sessionStorage.setItem('diagnosticInterview', score);
+        // Function to store the answers
+        function storeAnswers(form) {
+            const answers = {};
+            const questions = form.querySelectorAll('.question input[type="radio"]:checked');
+            questions.forEach(function(question) {
+                answers[question.name] = question.value;
+            });
+            // Store answers in sessionStorage or localStorage for later use (such as for PDF generation)
+            sessionStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
+        }
+        <script>
+        // Handle section transitions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle Next button click for Section 1
+            document.getElementById('next-section-1').addEventListener('click', function() {
+                const section1Form = document.getElementById('diagnostic-form-1');
+                if (validateSection(section1Form)) {
+                    // Store data and proceed to next section
+                    storeAnswers(section1Form);
+                    document.getElementById('section-1').style.display = 'none';
+                    document.getElementById('section-2').style.display = 'block';
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
 
-            window.location.href = 'developmental-assessment.html';
+            // Handle Next button click for Section 2
+            document.getElementById('next-section-2').addEventListener('click', function() {
+                const section2Form = document.getElementById('diagnostic-form-2');
+                if (validateSection(section2Form)) {
+                    storeAnswers(section2Form);
+                    document.getElementById('section-2').style.display = 'none';
+                    document.getElementById('section-3').style.display = 'block';
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
+
+            // Handle Submit button click for Section 3
+            document.getElementById('submit-form').addEventListener('click', function(event) {
+                event.preventDefault();
+                const section3Form = document.getElementById('diagnostic-form-3');
+                if (validateSection(section3Form)) {
+                    storeAnswers(section3Form);
+                    // After validation and storing data, proceed to next page (Developmental Assessment)
+                    window.location.href = "developmental-assessment.html";
+                } else {
+                    alert("Please answer all questions.");
+                }
+            });
         });
+
+        // Function to validate the section (checks if any radio buttons are selected)
+        function validateSection(form) {
+            const questions = form.querySelectorAll('.question input[type="radio"]');
+            for (let i = 0; i < questions.length; i++) {
+                if (!questions[i].checked) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Function to store the answers
+        function storeAnswers(form) {
+            const answers = {};
+            const questions = form.querySelectorAll('.question input[type="radio"]:checked');
+            questions.forEach(function(question) {
+                answers[question.name] = question.value;
+            });
+            // Store answers in sessionStorage or localStorage for later use (such as for PDF generation)
+            sessionStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
+        }
     </script>
 </body>
 </html>
