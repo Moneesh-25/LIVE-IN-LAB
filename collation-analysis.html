@@ -31,6 +31,15 @@
         .strong-influence, .severe-influence {
             color: #f44336;
         }
+
+        #teaching-suggestions {
+            font-size: 1.1em;
+            margin-top: 20px;
+            background-color: #e7f7e7;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -38,59 +47,78 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a href="initial-screening.html">Initial Screening</a></li>
             <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
             <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+            <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
             <li><a href="collation-analysis.html">Collation and Analysis</a></li>
             <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
         </ul>
     </nav>
+    
     <h2>Results</h2>
     <p id="result">Calculating...</p>
+
+    <div id="teaching-suggestions"></div>
+
     <button onclick="goToDiagnosticConclusion()">Next</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         function calculatePercentage() {
-            const initialScreening = parseFloat(sessionStorage.getItem('initialScreening')) || 0;
             const diagnosticInterview = parseFloat(sessionStorage.getItem('diagnosticInterview')) || 0;
             const developmentalAssessment = parseFloat(sessionStorage.getItem('developmentalAssessment')) || 0;
 
-            const maxInitialScreening = 10;
+            // Maximum possible scores
             const maxDiagnosticInterview = 75;
             const maxDevelopmentalAssessment = 10;
 
-            const totalScore = initialScreening + diagnosticInterview + developmentalAssessment;
-            const maxScore = maxInitialScreening + maxDiagnosticInterview + maxDevelopmentalAssessment;
+            const totalScore = diagnosticInterview + developmentalAssessment;
+            const maxScore = maxDiagnosticInterview + maxDevelopmentalAssessment;
 
             const percentage = (totalScore / maxScore) * 100;
 
             let description;
             let resultClass;
             if (percentage <= 20) {
-                description = 'Minimal Influence: The individual shows very few signs of ASD. Most behaviors and responses are within typical ranges. Limited challenges in social interactions and cognitive functions.';
+                description = 'Minimal Influence: The individual shows very few signs of ASD. Most behaviors and responses are within typical ranges.';
                 resultClass = 'low-influence';
             } else if (percentage <= 40) {
-                description = 'Mild Influence: Some signs of ASD are present, but they are relatively mild. Occasional difficulties in social interactions or behavioral patterns. Reactions to stimuli and behaviors show slight deviations from typical norms.';
+                description = 'Mild Influence: Some signs of ASD are present, but they are relatively mild. Occasional difficulties in social interactions or behavioral patterns.';
                 resultClass = 'mild-influence';
             } else if (percentage <= 60) {
-                description = 'Moderate Influence: Noticeable signs of ASD affecting various areas. Regular challenges in social interactions, cognitive functions, and behavioral patterns. Significant deviations from typical developmental and behavioral norms.';
+                description = 'Moderate Influence: Noticeable signs of ASD affecting various areas. Regular challenges in social interactions and behavioral patterns.';
                 resultClass = 'moderate-influence';
             } else if (percentage <= 80) {
-                description = 'Strong Influence: Significant signs of ASD that impact daily functioning. Consistent difficulties in social interactions, understanding of social cues, and behavioral patterns. Major deviations from typical developmental and behavioral expectations.';
+                description = 'Strong Influence: Significant signs of ASD that impact daily functioning. Consistent difficulties in social interactions and understanding of social cues.';
                 resultClass = 'strong-influence';
             } else {
-                description = 'Severe Influence: The individual exhibits strong symptoms of ASD. Extensive challenges in all assessed areas, including social interactions, cognitive functions, and behaviors. Major and consistent deviations from typical developmental and behavioral norms.';
+                description = 'Severe Influence: The individual exhibits strong symptoms of ASD. Extensive challenges in all assessed areas.';
                 resultClass = 'severe-influence';
             }
 
+            // Save the percentage and description
             sessionStorage.setItem('percentage', percentage.toFixed(2));
             sessionStorage.setItem('description', description);
 
             const resultElement = document.getElementById('result');
             resultElement.innerHTML = `<strong>Percentage Influence:</strong> ${percentage.toFixed(2)}%<br><br><strong>Description:</strong> ${description}`;
             resultElement.className = resultClass;
-        }
 
+            // Display teaching suggestions based on influence level
+            const teachingSuggestionsElement = document.getElementById('teaching-suggestions');
+            if (percentage <= 20) {
+                teachingSuggestionsElement.innerHTML = "<strong>Suggested Teaching Approach:</strong><br> Focus on social integration and encouraging interaction in structured environments. Minimal interventions may be required.";
+            } else if (percentage <= 40) {
+                teachingSuggestionsElement.innerHTML = "<strong>Suggested Teaching Approach:</strong><br> Introduce small-group activities to encourage communication and social interaction. Provide regular feedback and structure in tasks.";
+            } else if (percentage <= 60) {
+                teachingSuggestionsElement.innerHTML = "<strong>Suggested Teaching Approach:</strong><br> Provide more personalized interventions, including social skills training and cognitive behavioral strategies. Reinforce positive behaviors.";
+            } else if (percentage <= 80) {
+                teachingSuggestionsElement.innerHTML = "<strong>Suggested Teaching Approach:</strong><br> Use behavior modification techniques, consistent routines, and support for communication. Intensive social and emotional development programs are recommended.";
+            } else {
+                teachingSuggestionsElement.innerHTML = "<strong>Suggested Teaching Approach:</strong><br> Intensive one-on-one support, tailored therapy, and strategies for communication and social skills are necessary. Specialized learning environments are highly recommended.";
+            }
+        }
 
         function goToDiagnosticConclusion() {
             window.location.href = 'diagnostic-conclusion.html';
@@ -100,3 +128,4 @@
     </script>
 </body>
 </html>
+
