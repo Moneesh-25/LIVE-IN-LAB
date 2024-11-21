@@ -40,12 +40,16 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="initial-screening.html">Initial Screening</a></li>
+
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
                 <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
+                <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
+
                 <li><a href="collation-analysis.html">Collation and Analysis</a></li>
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
+        
     </header>
     <main>
         <section>
@@ -68,86 +72,43 @@
         <p>&copy; 2024 Autism Detection Project</p>
     </footer>
 
-    <script>
-        let mediaRecorder;
-        let videoStream;
-        let videoChunks = [];
+    // ... (rest of the HTML and CSS)
 
-        const videoElement = document.getElementById('video');
-        const startButton = document.getElementById('start-recording');
-        const stopButton = document.getElementById('stop-recording');
-        const recordingForm = document.getElementById('recording-form');
-        const videoFileInput = document.getElementById('video-file');
+<script>
+  // ... (rest of the JavaScript)
 
-        // Get the user's webcam stream
-        async function startVideoStream() {
-            try {
-                videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-                videoElement.srcObject = videoStream;
-            } catch (error) {
-                console.error('Error accessing webcam:', error);
-                alert('Could not access webcam. Please check your permissions.');
-            }
-        }
+  // Handle form submission with more error handling and feedback
+  recordingForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-        // Start recording
-        startButton.addEventListener('click', () => {
-            mediaRecorder = new MediaRecorder(videoStream);
-            mediaRecorder.ondataavailable = (event) => videoChunks.push(event.data);
-            mediaRecorder.onstop = () => {
-                const videoBlob = new Blob(videoChunks, { type: 'video/webm' });
-                const videoUrl = URL.createObjectURL(videoBlob);
-                videoFileInput.value = videoUrl;  // Attach the video file URL to the form
-                recordingForm.style.display = 'block';  // Show the submit form
-            };
-            mediaRecorder.start();
-            startButton.disabled = true;
-            stopButton.disabled = false;
-        });
+    try {
+      const formData = new FormData();
+      formData.append('video-file', blob, 'recording.webm');
 
-        // Stop recording
-        stopButton.addEventListener('click', () => {
-            mediaRecorder.stop();
-            startButton.disabled = false;
-            stopButton.disabled = true;
-        });
+      const response = await fetch('submit-behavioral-analysis.php', {
+        method: 'POST',
+        body: formData
+      });
 
-        // Submit the recording
-        recordingForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
+      if (!response.ok) {
+        throw new Error('Failed to submit the recording.');
+      }
 
-            try {
-                const formData = new FormData();
-                formData.append('video-file', videoFileInput.value, 'recording.webm');
+      const result = await response.json();
 
-                const response = await fetch('submit-behavioral-analysis.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to submit the recording.');
-                }
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('Recording submitted successfully!');
-                    window.location.href = 'collation-analysis.html';
-                } else {
-                    alert('Failed to submit the recording.');
-                }
-            } catch (error) {
-                console.error('Error submitting the recording:', error);
-                alert('An error occurred while submitting the recording. Please try again later.');
-            }
-        });
-
-        // Initialize the webcam stream when the page loads
-        window.onload = startVideoStream;
-    </script>
+      if (result.success) {
+        alert('Recording submitted successfully!');
+        window.location.href = 'collation-analysis.html';
+      } else {
+        alert('Failed to submit the recording.');
+      }
+    } catch (error) {
+      console.error('Error submitting the recording:', error);
+      alert('An error occurred while submitting the recording. Please try again later.');
+    }
+  });
+</script>
 </body>
 </html>
-
 
 
