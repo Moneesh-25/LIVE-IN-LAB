@@ -15,17 +15,17 @@
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
                 <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
                 <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
-
                 <li><a href="collation-analysis.html">Collation and Analysis</a></li>
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
     </header>
     <main>
-         <!-- Section 1 -->
-         <section id="section-1">
+        <!-- Section 1 -->
+        <section id="section-1">
             <h2>Section 1: Social Behavior</h2>
             <form id="diagnostic-form-1">
+                <!-- Example Question -->
                 <div class="question">
                     <label for="q1">1. Does the individual find it difficult to maintain eye contact?</label><br>
                     <input type="radio" name="q1" value="1"> Yes<br>
@@ -192,23 +192,21 @@
                     <input type="radio" name="q30" value="1"> Yes<br>
                     <input type="radio" name="q30" value="0"> No<br>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" id="submit-form">Submit</button>
             </form>
         </section>
     </main>
-
     <footer>
         <p>&copy; 2024 Neuroinsight Project. All rights reserved.</p>
     </footer>
-        <script>
+
+    <script>
         // Handle section transitions
         document.addEventListener('DOMContentLoaded', function () {
             // Handle Next button click for Section 1
             document.getElementById('next-section-1').addEventListener('click', function() {
-                const section1Form = document.getElementById('diagnostic-form-1');
-                if (validateSection(section1Form)) {
-                    // Store data and proceed to next section
-                    storeAnswers(section1Form);
+                if (validateSection('diagnostic-form-1')) {
+                    storeAnswers('diagnostic-form-1');
                     document.getElementById('section-1').style.display = 'none';
                     document.getElementById('section-2').style.display = 'block';
                 } else {
@@ -218,9 +216,8 @@
 
             // Handle Next button click for Section 2
             document.getElementById('next-section-2').addEventListener('click', function() {
-                const section2Form = document.getElementById('diagnostic-form-2');
-                if (validateSection(section2Form)) {
-                    storeAnswers(section2Form);
+                if (validateSection('diagnostic-form-2')) {
+                    storeAnswers('diagnostic-form-2');
                     document.getElementById('section-2').style.display = 'none';
                     document.getElementById('section-3').style.display = 'block';
                 } else {
@@ -231,10 +228,10 @@
             // Handle Submit button click for Section 3
             document.getElementById('submit-form').addEventListener('click', function(event) {
                 event.preventDefault();
-                const section3Form = document.getElementById('diagnostic-form-3');
-                if (validateSection(section3Form)) {
-                    storeAnswers(section3Form);
-                    // After validation and storing data, proceed to next page (Developmental Assessment)
+                if (validateSection('diagnostic-form-3')) {
+                    storeAnswers('diagnostic-form-3');
+                    alert("Thank you for completing the diagnostic interview.");
+                    // Redirect to the next page
                     window.location.href = "developmental-assessment.html";
                 } else {
                     alert("Please answer all questions.");
@@ -242,89 +239,31 @@
             });
         });
 
-        // Function to validate the section (checks if any radio buttons are selected)
-        function validateSection(form) {
-            const questions = form.querySelectorAll('.question input[type="radio"]');
-            for (let i = 0; i < questions.length; i++) {
-                if (!questions[i].checked) {
+        // Validate the form section to ensure all questions are answered
+        function validateSection(formId) {
+            const form = document.getElementById(formId);
+            const questions = form.querySelectorAll('input[type="radio"]');
+            const names = [...new Set(Array.from(questions).map(input => input.name))];
+
+            for (const name of names) {
+                const options = form.querySelectorAll(`input[name="${name}"]`);
+                if (![...options].some(option => option.checked)) {
                     return false;
                 }
             }
             return true;
         }
 
-        // Function to store the answers
-        function storeAnswers(form) {
+        // Store answers to sessionStorage
+        function storeAnswers(formId) {
+            const form = document.getElementById(formId);
             const answers = {};
-            const questions = form.querySelectorAll('.question input[type="radio"]:checked');
-            questions.forEach(function(question) {
-                answers[question.name] = question.value;
+            const selectedOptions = form.querySelectorAll('input[type="radio"]:checked');
+            selectedOptions.forEach(option => {
+                answers[option.name] = option.value;
             });
-            // Store answers in sessionStorage or localStorage for later use (such as for PDF generation)
-            sessionStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
-        }
-        <script>
-        // Handle section transitions
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle Next button click for Section 1
-            document.getElementById('next-section-1').addEventListener('click', function() {
-                const section1Form = document.getElementById('diagnostic-form-1');
-                if (validateSection(section1Form)) {
-                    // Store data and proceed to next section
-                    storeAnswers(section1Form);
-                    document.getElementById('section-1').style.display = 'none';
-                    document.getElementById('section-2').style.display = 'block';
-                } else {
-                    alert("Please answer all questions.");
-                }
-            });
-
-            // Handle Next button click for Section 2
-            document.getElementById('next-section-2').addEventListener('click', function() {
-                const section2Form = document.getElementById('diagnostic-form-2');
-                if (validateSection(section2Form)) {
-                    storeAnswers(section2Form);
-                    document.getElementById('section-2').style.display = 'none';
-                    document.getElementById('section-3').style.display = 'block';
-                } else {
-                    alert("Please answer all questions.");
-                }
-            });
-
-            // Handle Submit button click for Section 3
-            document.getElementById('submit-form').addEventListener('click', function(event) {
-                event.preventDefault();
-                const section3Form = document.getElementById('diagnostic-form-3');
-                if (validateSection(section3Form)) {
-                    storeAnswers(section3Form);
-                    // After validation and storing data, proceed to next page (Developmental Assessment)
-                    window.location.href = "developmental-assessment.html";
-                } else {
-                    alert("Please answer all questions.");
-                }
-            });
-        });
-
-        // Function to validate the section (checks if any radio buttons are selected)
-        function validateSection(form) {
-            const questions = form.querySelectorAll('.question input[type="radio"]');
-            for (let i = 0; i < questions.length; i++) {
-                if (!questions[i].checked) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // Function to store the answers
-        function storeAnswers(form) {
-            const answers = {};
-            const questions = form.querySelectorAll('.question input[type="radio"]:checked');
-            questions.forEach(function(question) {
-                answers[question.name] = question.value;
-            });
-            // Store answers in sessionStorage or localStorage for later use (such as for PDF generation)
-            sessionStorage.setItem('diagnosticAnswers', JSON.stringify(answers));
+            const storedAnswers = JSON.parse(sessionStorage.getItem('diagnosticAnswers')) || {};
+            sessionStorage.setItem('diagnosticAnswers', JSON.stringify({ ...storedAnswers, ...answers }));
         }
     </script>
 </body>
