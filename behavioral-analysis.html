@@ -6,7 +6,6 @@
     <title>Behavioral Analysis</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Additional CSS for the video recording section */
         #video-container {
             text-align: center;
             margin: 20px auto;
@@ -40,17 +39,15 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="initial-screening.html">Initial Screening</a></li>
-
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
                 <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
                 <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
-
                 <li><a href="collation-analysis.html">Collation and Analysis</a></li>
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
-        
     </header>
+    
     <main>
         <section>
             <h2>Behavioral Analysis</h2>
@@ -68,47 +65,91 @@
             </form>
         </section>
     </main>
+    
     <footer>
         <p>&copy; 2024 Autism Detection Project</p>
     </footer>
 
-    // ... (rest of the HTML and CSS)
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        let videoStream;
 
-<script>
-  // ... (rest of the JavaScript)
+        document.getElementById("start-recording").addEventListener("click", async function() {
+            try {
+                // Get user media (webcam)
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById("video").srcObject = videoStream;
 
-  // Handle form submission with more error handling and feedback
-  recordingForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
+                // Initialize MediaRecorder
+                mediaRecorder = new MediaRecorder(videoStream, { mimeType: "video/webm" });
 
-    try {
-      const formData = new FormData();
-      formData.append('video-file', blob, 'recording.webm');
+                mediaRecorder.ondataavailable = function(event) {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
 
-      const response = await fetch('submit-behavioral-analysis.php', {
-        method: 'POST',
-        body: formData
-      });
+                mediaRecorder.onstop = function() {
+                    const recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
+                    const url = URL.createObjectURL(recordedBlob);
+                    console.log("Recording URL:", url);
 
-      if (!response.ok) {
-        throw new Error('Failed to submit the recording.');
-      }
+                    // Store the blob in the hidden input field
+                    const videoFileInput = document.getElementById("video-file");
+                    videoFileInput.value = url; // This allows submission
 
-      const result = await response.json();
+                    document.getElementById("recording-form").style.display = "block";
+                };
 
-      if (result.success) {
-        alert('Recording submitted successfully!');
-        window.location.href = 'collation-analysis.html';
-      } else {
-        alert('Failed to submit the recording.');
-      }
-    } catch (error) {
-      console.error('Error submitting the recording:', error);
-      alert('An error occurred while submitting the recording. Please try again later.');
-    }
-  });
-</script>
+                // Start recording
+                mediaRecorder.start();
+                document.getElementById("start-recording").disabled = true;
+                document.getElementById("stop-recording").disabled = false;
+            } catch (error) {
+                console.error("Error accessing webcam:", error);
+                alert("Failed to access webcam. Please check your permissions.");
+            }
+        });
+
+        document.getElementById("stop-recording").addEventListener("click", function() {
+            mediaRecorder.stop();
+            videoStream.getTracks().forEach(track => track.stop()); // Stop webcam
+
+            document.getElementById("start-recording").disabled = false;
+            document.getElementById("stop-recording").disabled = true;
+        });
+
+        document.getElementById("recording-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            try {
+                const formData = new FormData();
+                const recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
+                formData.append('video-file', recordedBlob, 'recording.webm');
+
+                const response = await fetch('submit-behavioral-analysis.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit the recording.');
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Recording submitted successfully!');
+                    window.location.href = 'collation-analysis.html';
+                } else {
+                    alert('Failed to submit the recording.');
+                }
+            } catch (error) {
+                console.error('Error submitting the recording:', error);
+                alert('An error occurred while submitting the recording. Please try again later.');
+            }
+        });
+    </script>
 </body>
 </html>
-
-
