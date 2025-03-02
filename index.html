@@ -3,17 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEUROINSIGHT</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>NEUROINSIGHT - Autism Detection</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #004466, #006699);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        header {
+            background: rgba(0, 68, 102, 0.8);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s ease-in-out;
+        }
+        nav ul li a:hover {
+            transform: scale(1.2) rotateY(10deg);
+            color: #ffcc00;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #ffcc00;
+            color: #004466;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn:hover {
+            background: #ff9900;
+            transform: scale(1.1);
+        }
+     
+
+        .info-cards {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        padding: 50px 20px;
+        background: transparent;
+    }
+
+    .card {
+        background: #ffffff;
+        padding: 20px;
+        width: 320px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 300%;
+        height: 300%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 70%);
+        transition: all 0.5s ease-in-out;
+    }
+
+    .card:hover::before {
+        top: 0;
+        left: 0;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+        font-size: 1.5em;
+        color: #004466;
+        margin-bottom: 15px;
+    }
+
+    .card p {
+        font-size: 1em;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+        .info-cards {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+
+    .stats-section {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        padding: 60px 20px;
+        background: transparent;
+        color: white;
+        text-align: center;
+    }
+
+    .stat-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 25px;
+        border-radius: 12px;
+        width: 220px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .stat-box:hover {
+        transform: scale(1.1);
+    }
+
+    .stat-box h2 {
+        font-size: 2.5em;
+        color: #ffcc00;
+    }
+
+    .stat-box p {
+        font-size: 1.1em;
+    }
+
+    /* timeline */
+    .timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 60px auto;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 4px;
+        background: #ffcc00;
+        top: 0;
+        bottom: 0;
+        margin-left: -2px;
+    }
+
+    .timeline-step {
+        position: relative;
+        width: 45%;
+        padding: 20px;
+        background: #fff;
+        color: #333;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .timeline-step:nth-child(even) {
+        left: 50%;
+    }
+
+    .timeline-step:nth-child(odd) {
+        left: 5%;
+    }
+
+    .timeline-step::after {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #ffcc00;
+        border-radius: 50%;
+        top: 20px;
+        right: -10px;
+    }
+
+    .timeline-step:nth-child(even)::after {
+        left: -10px;
+    }
+    </style>
 </head>
 <body>
+    <canvas id="bg"></canvas>
     <header>
         <h1>NEUROINSIGHT</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="initial-screening.html">Initial Screening</a></li>
-
                 <li><a href="diagnostic-interview.html">Diagnostic Interview</a></li>
                 <li><a href="developmental-assessment.html">Developmental Assessment</a></li>
                 <li><a href="behavioral-analysis.html">Behavioral Analysis</a></li>
@@ -21,16 +239,98 @@
                 <li><a href="diagnostic-conclusion.html">Diagnostic Conclusion</a></li>
             </ul>
         </nav>
-        
     </header>
-    <main>
-        <section>
-            <h2>Welcome to the NEUROINSIGHT</h2>
-            <p>Our system aims to assist in the detection of level of autism through a comprehensive process that includes medical screening, diagnostic interviews, developmental assessments, and more.</p>
-        </section>
-    </main>
+    
+    <section class="hero">
+        <h2>Empowering Early Autism Detection</h2>
+        <p>NEUROINSIGHT offers a structured and reliable way to assess autism spectrum levels through data-driven analysis and expert-backed evaluations.</p>
+        <a href="initial-screening.html" class="btn">Get Started</a>
+    </section>
+
+    
+    <section class="info-cards">
+        <div class="card">
+            <h3>AI-Powered Screening</h3>
+            <p>Our advanced AI-driven screening system enhances autism detection by analyzing facial expressions, speech patterns, and behavioral cues with high precision. Using machine learning and real-time data processing, it identifies early signs of autism, providing faster and more accurate assessments.</p>
+        </div>
+        <div class="card">
+            <h3>Behavioral Analysis</h3>
+            <p>Our AI-powered behavioral analysis evaluates movement patterns, social interactions, and repetitive behaviors to detect autism-related traits with high accuracy. Using advanced tracking technologies, it monitors gestures, facial expressions, and response patterns to assess neurodevelopmental differences.</p>
+        </div>
+        <div class="card">
+            <h3>Expert-Backed Insights</h3>
+            <p>Our autism assessment combines cutting-edge AI with expert-backed research to provide accurate and reliable insights. Developed in collaboration with specialists in psychology, neuroscience, and behavioral analysis, our system evaluates key developmental indicators, ensuring a comprehensive understanding of autism spectrum traits. </p>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stat-box">
+            <h2>92%</h2>
+            <p>Accuracy in Autism Detection</p>
+        </div>
+        <div class="stat-box">
+            <h2>50K+</h2>
+            <p>Successful Screenings</p>
+        </div>
+        <div class="stat-box">
+            <h2>80%</h2>
+            <p>Faster Diagnosis Time</p>
+        </div>
+    </section>
+
+
+    <section class="timeline">
+        <div class="timeline-step">
+            <h3>Step 1: Initial Screening</h3>
+            <p>AI-powered assessment of early autism indicators.</p>
+        </div>
+        <div class="timeline-step">
+            <h3>Step 2: Behavioral Observation</h3>
+            <p>Tracking social interactions and responses.</p>
+        </div>
+        <div class="timeline-step">
+            <h3>Step 3: Expert Consultation</h3>
+            <p>Specialist-backed evaluation and feedback.</p>
+        </div>
+    </section>
+
+    
+    <section class="testimonials">
+        <h2>What People Say</h2>
+        <p>"NEUROINSIGHT provided us with a clear, structured process that helped us understand autism diagnosis better." - Parent</p>
+    </section>
     <footer>
-        <p>&copy; 2024 Autism Detection Project</p>
+        <p>&copy; 2024 NEUROINSIGHT | Autism Detection Project</p>
     </footer>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        const spheres = [];
+        for (let i = 0; i < 10; i++) {
+            const geometry = new THREE.SphereGeometry(1, 32, 32);
+            const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+            const sphere = new THREE.Mesh(geometry, material);
+            sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+            scene.add(sphere);
+            spheres.push(sphere);
+        }
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            spheres.forEach(sphere => {
+                sphere.rotation.x += 0.01;
+                sphere.rotation.y += 0.01;
+                sphere.position.y += Math.sin(Date.now() * 0.001) * 0.01;
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
 </body>
 </html>
